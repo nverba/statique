@@ -1,0 +1,23 @@
+<div id="posts-container" >
+
+  <div class="posts-nav">
+    <a class="prev" ng-link="posts({ queryParams: { page: posts.page.previous }})">Previous</a>
+    <a class="next" ng-link="posts({ queryParams: { page: posts.page.next }})">Next</a>
+  </div>
+
+  <ul class="index">
+    <li ng-repeat="post in posts.page.posts" ng-init="link = (post.key | parseKey)">
+      <a ng-link="post({ id: link })" class="index-link">
+        <h3 ng-bind="post.title"></h3>
+      </a>
+      <div class="post-detail">
+        <span>{{ post.date | parseUrlDate | date:'mediumDate' }} by {{ post.author }}</span>
+        <ul class="inline-tags">Tags: 
+          <li ng-repeat="tag in post.tags">
+            <a ng-bind="tag" ng-link="search({ queryParams: { tags: [tag]}})"></a>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>
