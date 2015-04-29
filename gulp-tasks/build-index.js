@@ -5,7 +5,8 @@ var gutil   = require('gulp-util');
 var config  = require('../statique-config.json');
 var replace = require('gulp-replace');
 
-// build root index.html from src/index.html, embedd profile image as base64 and above the fold src/template.scss.
+// Build root index.html from src/index.html, embedd profile image as base64 and above the fold src/template.scss.
+// Replace index title, name & tagline with supplied configs
 
 gulp.task('build:index', function () {
 

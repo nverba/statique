@@ -30,7 +30,7 @@ gulp.task('build:tags', ['build:posts'], function () {
       data[filename].posts.forEach(getTags);
     }
 
-    // for completed tags object element, create new file in tags directory
+    // For completed tags object element, create new file in tags directory,
     // then, replace tag path data with .length, i.e. number of documents referencing that tag
 
     for (var tag in tags) {
@@ -38,7 +38,7 @@ gulp.task('build:tags', ['build:posts'], function () {
       tags[tag] = tags[tag].length;
     }
 
-    // return tags as buffer to be passed to dest
+    // Return tags as buffer to be passed to dest
 
     return new Buffer(JSON.stringify(tags), "utf-8");
   }

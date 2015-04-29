@@ -4,7 +4,7 @@ var inject = require('gulp-inject');
 
 gulp.task('build:scss', function () {
 
-  // Collect all .scss file names from components and inject into main.scss
+  // Collect all .scss file names from components and inject into main.scss as dependencies
 
   return gulp.src('./src/scss/main.scss')
     .pipe(inject(
@@ -20,7 +20,7 @@ gulp.task('build:scss', function () {
   .pipe(gulp.dest('./src/scss/'));
 });
 
-// use sass plugin to buils css files from main.scss
+// Use sass plugin to build main.css from main.scss
  
 gulp.task('build:css', ['build:scss'], function () {
   gulp.src('./src/scss/main.scss')

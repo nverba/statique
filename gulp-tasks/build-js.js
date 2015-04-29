@@ -1,12 +1,10 @@
-// BUILD JAVASCRIPT 
-
 var gulp       = require('gulp');
 var browserify = require('browserify');
 var uglify     = require('gulp-uglify');
 var streamify  = require('gulp-streamify');
 var source     = require('vinyl-source-stream');
 
-// use browserify to build build/main.js from src/app.js with injected deps.
+// Use browserify to build build/main.js from src/app.js with injected deps
 
 gulp.task('build:js', function() {
 
