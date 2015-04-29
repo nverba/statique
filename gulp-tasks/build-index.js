@@ -1,12 +1,16 @@
-var gulp   = require('gulp');
-var inject = require('gulp-inject');
-var sass   = require('gulp-sass');
-var gutil  = require('gulp-util');
+var gulp    = require('gulp');
+var inject  = require('gulp-inject');
+var sass    = require('gulp-sass');
+var gutil   = require('gulp-util');
+var config  = require('../statique-config.json');
+var replace = require('gulp-replace');
+
+// build root index.html from src/index.html, embedd profile image as base64 and above the fold src/template.scss.
 
 gulp.task('build:index', function () {
 
   var scssSrc = gulp.src(['./src/scss/template.scss'], {read: true}).pipe(sass());
-  var imgSrc  = gulp.src(['./src/images/template.jpg'], {read: true});
+  var imgSrc  = gulp.src(config.profileImage, {read: true});
 
   return gulp.src('./src/index.html')
     .pipe(inject(scssSrc, {
@@ -25,9 +29,8 @@ gulp.task('build:index', function () {
         }
       }
     ))
+    .pipe(replace(/<!-- statique:title -->/, config.title))
+    .pipe(replace(/<!-- statique:name -->/, config.name))
+    .pipe(replace(/<!-- statique:tagline -->/, config.tagline))
     .pipe(gulp.dest('./'));
-});
-
-gulp.task('watch:index', ['build:index'], function() {
-  gulp.watch(['./src/scss/*.*', './src/images/*.*', './src/index.html'], ['build:index']);
 });

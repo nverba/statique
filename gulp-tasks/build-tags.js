@@ -51,10 +51,3 @@ gulp.task('build:tags', ['build:posts'], function () {
   tags_loc = './build/tags/';
   return buildTags(src, dest, tags_loc);
 });
-
-gulp.task('build:tags:test', ['build:posts:test'], function () {
-  src  = ['./tests/fake_data/indexes/posts/*.json'];
-  dest = './tests/fake_data/indexes/tags';
-  tags_loc = './tests/fake_data/tags/';
-  return buildTags(src, dest, tags_loc);
-});

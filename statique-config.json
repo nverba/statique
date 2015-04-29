@@ -1,0 +1,11 @@
+{
+
+  "rootUrl": "http//localhost:8080/",
+
+  "title": "Statique Blog",
+  "name": "Me",
+  "tagline": "This is my Blog.",
+
+  "profileImage": "./src/images/placeholder.png"
+
+}

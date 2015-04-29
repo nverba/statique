@@ -6,7 +6,7 @@ angular.module('posts.component', ['ngNewRouter', 'statique:filters'])
 function PostsControllerFn($http, $location) {
 
   function fetchPosts(id) {
-    return $http.get('build/indexes/posts/' + id + '.json');
+    return $http.get('./build/indexes/posts/' + id + '.json');
   }
 
   var allocatePosts = function (result) {

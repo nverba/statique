@@ -1,6 +1,6 @@
 require('angular');
 require('angular-sanitize');
-require('angular-new-router');
+require('./router.es5.js'); // use modified "working" version of angular-new-router till 1.0 released.
 
 require('./filters.js');
 require('../../components/tag/tag.js');
@@ -20,8 +20,7 @@ function RouteController($router) {
       components: {
         'default': 'posts',
         'tags': 'tag'
-      },
-      dynamic: true
+      }
     },
     { 
       path: '/post/:id',
@@ -35,8 +34,7 @@ function RouteController($router) {
       components: {
         'default': 'search',
         'tags': 'tag'
-      },
-      dynamic: true
+      }
     }
   ]);
 }

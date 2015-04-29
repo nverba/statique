@@ -55,9 +55,3 @@ gulp.task('build:posts', ['build:flush'], function () {
   dest = './build/indexes/posts';
   return buildPostsFn(src, dest);
 });
-
-gulp.task('build:posts:test', ['build:flush:test'], function () {
-  src  = './tests/fake_data/posts/*.*';
-  dest = './tests/fake_data/indexes/posts';
-  return buildPostsFn(src, dest);
-});

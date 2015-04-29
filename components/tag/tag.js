@@ -70,7 +70,7 @@ function TagControllerFn($http, $rootScope, $router, $location) {
   };
 
   $rootScope.$watchCollection(this.searchString, updateTags);
-  this.init = $http.get('build/indexes/tags/tags.json').then(allocateTags);
+  this.init = $http.get('./build/indexes/tags/tags.json').then(allocateTags);
   this.search_string = params ? params + ' ' : '';
 
 }

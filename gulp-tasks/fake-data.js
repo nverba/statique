@@ -3,14 +3,6 @@ var faker = require('faker');
 var del   = require('del');
 var fs    = require('fs');
 
-gulp.task('clean:fake:data', function (cb) {
-  del([
-    './tests/fake_data/posts/*.*',
-    './tests/fake_data/tags/*.*',
-    './tests/fake_data/indexes/pages/*.*'
-  ], cb);
-});
-
 gulp.task('fake:data', ['clean:fake:data'], function () {
 
   var tags = ["php", "javascript", "html", "css", "jquery", "angularjs", "chrome", "http", "svg", "photoshop", "canvas", "png", "icons", "graphics", "ajax", "ember", "backbone"];
