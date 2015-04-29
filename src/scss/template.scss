@@ -35,6 +35,8 @@ body {
 }
 
 #tags-input-container {
+  z-index: 10;
+  position: relative;
   height: 3em;
   display: block;
 
