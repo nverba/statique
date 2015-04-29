@@ -3,13 +3,15 @@ var faker = require('faker');
 var del   = require('del');
 var fs    = require('fs');
 
-gulp.task('fake:data', ['clean:fake:data'], function () {
+var numberOfPosts = 40;
+
+gulp.task('fake:data', function () {
 
   var tags = ["php", "javascript", "html", "css", "jquery", "angularjs", "chrome", "http", "svg", "photoshop", "canvas", "png", "icons", "graphics", "ajax", "ember", "backbone"];
 
   var author = faker.name.firstName();
 
-  for(var x=0; x<82; x++) {
+  for(var x=0; x<numberOfPosts; x++) {
 
     var random_tags = {};
     for (var i=0; i <=3; i++) {

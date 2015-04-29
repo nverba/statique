@@ -1,11 +1,13 @@
-var gulp            = require('gulp');
-var map             = require('vinyl-map');
-var fm              = require('html-frontmatter');
-var ext_replace     = require('gulp-ext-replace');
-var groupAggregate  = require('gulp-group-aggregate');
+var gulp           = require('gulp');
+var map            = require('vinyl-map');
+var fm             = require('html-frontmatter');
+var ext_replace    = require('gulp-ext-replace');
+var groupAggregate = require('gulp-group-aggregate');
 
+var src  = './posts/*.md';
+var dest = './build/indexes/posts';
 
-function buildPostsFn(src, dest) {
+gulp.task('build:posts', ['flush:content'], function () {
 
   var i = 0;
   var posts_per_page = 10;
@@ -48,10 +50,5 @@ function buildPostsFn(src, dest) {
     .pipe(ext_replace('.json'))
     .pipe(group)
     .pipe(gulp.dest(dest));
-}
 
-gulp.task('build:posts', ['build:flush'], function () {
-  src  = './posts/*.*';
-  dest = './build/indexes/posts';
-  return buildPostsFn(src, dest);
 });
