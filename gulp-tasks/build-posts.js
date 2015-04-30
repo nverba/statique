@@ -17,7 +17,7 @@ gulp.task('build:posts', ['flush:content'], function () {
     var page      = { posts: source };
     group         =  parseInt(group, 10);
     page.previous = group === 0 ? false : (group - 1).toString(10);
-    page.next     = group === Math.floor(i / posts_per_page) ? false : (group + 1).toString(10);
+    page.next     = group === Math.ceil(i / posts_per_page) -1 ? false : (group + 1).toString(10);
 
     return new Buffer(JSON.stringify(page), "utf-8");
   }
