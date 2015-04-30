@@ -25,5 +25,6 @@ gulp.task('build:scss', function () {
 gulp.task('build:css', ['build:scss'], function () {
   gulp.src('./src/scss/main.scss')
     .pipe(sass())
+    .pipe(autoprefixer())
     .pipe(gulp.dest('./build/css'));
 });
