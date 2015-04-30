@@ -1,8 +1,8 @@
 <div id="posts-container" >
 
   <div class="posts-nav">
-    <a class="prev" ng-link="posts({ queryParams: { page: posts.page.previous }})">Previous</a>
-    <a class="next" ng-link="posts({ queryParams: { page: posts.page.next }})">Next</a>
+    <a class="prev" ng-link="posts({ queryParams: { page: posts.page.previous }})" ng-class="{ disabled: posts.page.previous === false }">Previous</a>
+    <a class="next" ng-link="posts({ queryParams: { page: posts.page.next }})" ng-class="{ disabled: posts.page.next === false }">Next</a>
   </div>
 
   <ul class="index">

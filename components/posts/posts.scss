@@ -21,6 +21,13 @@
     a.next {
       float: right;
     }
+
+    a.disabled {
+      background-color: #F7F7F7;
+      color: #E7E7E7;
+      pointer-events: none;
+      user-select: none;
+    }
   }
 
   color: #838383;
