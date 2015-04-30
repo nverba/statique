@@ -1,11 +1,12 @@
-var gulp  = require('gulp');
-var faker = require('faker');
-var del   = require('del');
-var fs    = require('fs');
+var gulp   = require('gulp');
+var faker  = require('faker');
+var del    = require('del');
+var fs     = require('fs');
+var config =  require('../statique-config.json');
 
 var numberOfPosts = 40;
 
-gulp.task('fake:data', function () {
+gulp.task('fake:data', ['flush:fake'], function () {
 
   var tags = ["php", "javascript", "html", "css", "jquery", "angularjs", "chrome", "http", "svg", "photoshop", "canvas", "png", "icons", "graphics", "ajax", "ember", "backbone"];
 
@@ -27,7 +28,7 @@ var fake_data = "<!--\n\
 title: " + title.charAt(0).toUpperCase() + title.slice(1) + "\n\
 author: " + author + "\n\
 date: " + date + "\n\
-permalink: http://localhost:8080/#/post/"  + permalink + "\n\
+permalink: " + config.rootUrl + "#/post/"  + permalink + "\n\
 key: " + key + "\n\
 tags: [" + Object.keys(random_tags).toString() + "]\n\
 -->\n\
@@ -36,4 +37,10 @@ tags: [" + Object.keys(random_tags).toString() + "]\n\
     fs.writeFile('./posts/' + permalink + '.md', fake_data);
 
   }
+});
+
+gulp.task('flush:fake', function (cb) {
+  del([
+    'posts/*.*'
+  ], cb);
 });
