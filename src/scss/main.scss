@@ -1,1 +1,19 @@
 /* inject:scss *//* endinject */
+
+body {
+  color: rgb(68, 68, 68);
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-size: 1em;
+}
+
+h1, h2, h3 {
+  letter-spacing: -1px;
+  font-weight: bold;
+  color: #444;
+}
+
+iframe {
+  border: none;
+}
+
