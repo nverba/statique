@@ -25,9 +25,8 @@ function SearchControllerFn($rootScope, $location, $http, $q) {
     }
   });
 
-  // When all tags loaded
+  var allocateResults = angular.bind(this, function () {
 
-  $q.all(ready).then(function () {
     angular.forEach(_.pick(tags, params_array), function (value, key) {
       angular.forEach(value, function (url) {
         list[url] = list[url] || [];
@@ -44,6 +43,8 @@ function SearchControllerFn($rootScope, $location, $http, $q) {
     this.results = _.sortBy(posts, function(post) {
       return 1 - post.tags.length;
     });
-    
-  }.bind(this));
+  });
+
+  // When all tags loaded
+  $q.all(ready).then(allocateResults);
 }
