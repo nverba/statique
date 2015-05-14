@@ -9,7 +9,7 @@ gulp.task('build:scss', function () {
 
   return gulp.src('./src/scss/main.scss')
     .pipe(inject(
-      gulp.src(['./components/**/*.scss'], {read: false}), {
+      gulp.src(['./components/**/*.scss', './directives/**/*.scss'], {read: false}), {
         relative: true,
         starttag: '/* {{name}}:{{ext}} */',
         endtag: '/* endinject */',
