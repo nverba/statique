@@ -58,6 +58,8 @@ function TagSearchControllerFn($scope, $location, $http, $router) {
     // cache previous_page url when leaving non search page
     if ($location.path() !== '/search') {
       previous_page = $location.url();
+    } else {
+      this.captureFocus();
     }
     var updated_params = $location.search()["tags[]"];
     this.string = updated_params ? parseParams(updated_params) : '';
@@ -84,9 +86,13 @@ function tagSearchFn ($location, $http, $timeout) {
     templateUrl: 'directives/tag/tag.html',
     link: function(scope, element, attrs) {
 
+      scope.tag.captureFocus = function () {
+        element[0].querySelector('#search-input').focus();
+      };
+
       scope.tag.selectTag = function (tag) {
         scope.tag.string = scope.tag.string.replace(/\S+$/, tag);
-        element[0].querySelector('#search-input').focus();
+        scope.tag.captureFocus();
       };
     }
   };
