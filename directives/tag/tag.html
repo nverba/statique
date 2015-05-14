@@ -1,0 +1,8 @@
+<input id="search-input" placeholder="search" ng-model="tag.string" 
+        ng-model-options="{ updateOn: 'default blur', debounce: {'default': 250, 'blur': 0} }">
+
+<ul id="search-suggest" ng-if="tag.partial">
+  <li ng-repeat="name in tag.tags_index | filter: tag.filter">
+    <button ng-click="tag.selectTag(name)" ng-bind="name"></button>
+  </li>
+</ul>

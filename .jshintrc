@@ -1,5 +1,8 @@
 {
   "node": true,
   "multistr": true,
-  "predef": ["angular"]
+  "predef": ["angular"],
+  "maxstatements": 15,
+  "maxdepth": 2,
+  "maxcomplexity": 5
 }

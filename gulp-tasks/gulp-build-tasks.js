@@ -4,7 +4,7 @@ gulp.task('build:source', ['build:index', 'build:js', 'build:css']);
 gulp.task('build:content', ['flush:content', 'build:posts', 'build:tags']);
 
 gulp.task('watch:source', ['build:source'], function() {
-  gulp.watch(['./components/**/*', './src/**/*', './statique-config.json'], ['build:source']);
+  gulp.watch(['./components/**/*', './directives/**/*', './src/**/*', './statique-config.json'], ['build:source']);
 });
 
 gulp.task('watch:posts', ['build:content'], function() {
