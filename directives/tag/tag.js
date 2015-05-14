@@ -21,13 +21,16 @@ function TagSearchControllerFn($scope, $location, $http, $router) {
     var tags = _.uniq(tag_string.split(/[, ]+/));
 
     // set tag directive scoped properties
-    this.partial = _.last(_.difference(tags, this.tags_index));
-    this.filter  = tagFilter(this.partial, tags);
+    this.partials = _.difference(tags, this.tags_index);
+    this.partial  = _.last(this.partials);
+    this.filter   = tagFilter(this.partial, tags);
 
-    if (!this.partial && !angular.equals(previous_tags, tags)) {
-      // direct to search page with tag params
-      $location.url($router.generate('search', { queryParams: { tags: tags }}));
-      previous_tags = tags;
+    var matching_tags = _.difference(tags, this.partials);
+
+    if (this.partial !== _.last(tags) && !angular.equals(previous_tags, matching_tags)) {
+      // direct to search page with tag params // this could be changed to [tags] to preserve unmatched partials
+      $location.url($router.generate('search', { queryParams: { tags: matching_tags }}));
+      previous_tags = matching_tags;
     }
   });
 
@@ -78,7 +81,7 @@ function TagSearchControllerFn($scope, $location, $http, $router) {
 }
 
 function tagSearchFn ($location, $http, $timeout) {
- return {
+  return {
     restrict: 'A',
     scope: true,
     controller: 'tagSearchController',
