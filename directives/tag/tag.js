@@ -10,7 +10,7 @@ function TagSearchControllerFn($scope, $location, $http, $router) {
   var previous_page;
 
   var allocateTags = angular.bind(this, function (response) {
-    return (this.tags_index = _.keys(response.data));
+    this.tags_index = _.keys(response.data);
   });
 
   var tagString = angular.bind(this, function () {
@@ -21,14 +21,14 @@ function TagSearchControllerFn($scope, $location, $http, $router) {
     var tags = _.uniq(tag_string.split(/[, ]+/));
 
     // set tag directive scoped properties
-    this.partials = _.difference(tags, this.tags_index);
+    this.partials = difference(tags, this.tags_index);
     this.partial  = _.last(this.partials);
     this.filter   = tagFilter(this.partial, tags);
 
-    var matching_tags = _.difference(tags, this.partials);
+    var matching_tags = difference(tags, this.partials);
 
     if (this.partial !== _.last(tags) && !angular.equals(previous_tags, matching_tags)) {
-      // direct to search page with tag params // this could be changed to [tags] to preserve unmatched partials
+      // direct to search page with tag params
       $location.url($router.generate('search', { queryParams: { tags: matching_tags }}));
       previous_tags = matching_tags;
     }
@@ -41,9 +41,34 @@ function TagSearchControllerFn($scope, $location, $http, $router) {
     $location.url(previous_page);
   });
 
+  // return source items not in reference, case insensitive
+  function difference(source, reference) {
+    return _.filter(source, function (item) {
+      return !hasIn(reference, item);
+    });
+  }
+
+  // collection has case insensitive match
+  function hasIn(source, matcher) {
+    return _.find(source, function (item) {
+      return matchIn(item).test(matcher);
+    });
+  }
+
+  // match case insensitive partials
+  function matchInPart(string) {
+    return new RegExp(['^' + string], 'i');
+  }
+
+  // match case insensitive string
+  function matchIn(string) {
+    return new RegExp(['^' + string + '$'], 'i');
+  }
+
   function tagFilter(partial, tags) {
     return function (tag) {
-      return _.indexOf(tags, tag) < 0 && (new RegExp(['^' + partial], 'i')).test(tag);
+      // suggested tag is not in active tags && partial matches start of tag
+      return !hasIn(tags, tag) && matchInPart(partial).test(tag);
     };
   }
 

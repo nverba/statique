@@ -19,7 +19,7 @@ function SearchControllerFn($rootScope, $location, $http, $q) {
 
   angular.forEach(params_array, function (name) {
     if (!tags[name]) {
-      ready.push($http.get('./build/tags/' + name + '.json').then(function (result) {
+      ready.push($http.get('./build/tags/' + name.toLowerCase() + '.json').then(function (result) {
         tags[name] = result.data;
       }));
     }
