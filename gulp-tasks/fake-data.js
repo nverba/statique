@@ -8,7 +8,7 @@ var numberOfPosts = 40;
 
 gulp.task('fake:data', ['flush:fake'], function () {
 
-  var tags = ["php", "javascript", "html", "css", "jquery", "angularjs", "chrome", "http", "svg", "photoshop", "canvas", "png", "icons", "graphics", "ajax", "ember", "backbone"];
+  var tags = ["PHP", "JavaScript", "HTML", "CSS", "JQuery", "Angularjs", "Chrome", "HTTP", "SVG", "Photoshop", "canvas", "PNG", "icons", "graphics", "ajax", "Ember", "Backbone", "HTML5", "design", "UX", "IX", "search", "Regex", "free", "premium", "FOSS", "params", "system", "source", "2015", "ES6", "directive", "controller", "inject", "service", "factory", "scope", "digest", "kittens", "unicorns", "rainbows", "beards", "Technology", "hacks", "make", "NPM", "templates", "bears", "Windows", "Linux", "OSX", "IOS", "Android", "JVM", "CSS3"];
 
   var author = faker.name.firstName();
 
