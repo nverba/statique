@@ -20,4 +20,9 @@
       </div>
     </li>
   </ul>
+
+  <div class="posts-nav" ng-if="posts.page.posts">
+    <a class="prev" ng-link="posts({ queryParams: { page: posts.page.previous }})" ng-class="{ disabled: posts.page.previous === false }">Previous</a>
+    <a class="next" ng-link="posts({ queryParams: { page: posts.page.next }})" ng-class="{ disabled: posts.page.next === false }">Next</a>
+  </div>
 </div>
