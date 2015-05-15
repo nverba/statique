@@ -34,7 +34,7 @@ gulp.task('build:tags', ['build:posts'], function () {
     // then, replace tag path data with .length, i.e. number of documents referencing that tag
 
     for (var tag in tags) {
-      fs.writeFile(tags_loc + tag + '.json', JSON.stringify(tags[tag]));
+      fs.writeFile(tags_loc + tag.toLowerCase() + '.json', JSON.stringify(tags[tag]));
       tags[tag] = tags[tag].length;
     }
 
