@@ -2,7 +2,7 @@
         ng-model-options="{ updateOn: 'default blur', debounce: {'default': 250, 'blur': 0} }">
 
 <ul id="search-suggest" ng-if="tag.partial">
-  <li ng-repeat="name in tag.tags_index | filter: tag.filter">
+  <li ng-repeat="name in tag.index | filter: tag.tagFilter">
     <button ng-click="tag.selectTag(name)" ng-bind="name"></button>
   </li>
 </ul>
