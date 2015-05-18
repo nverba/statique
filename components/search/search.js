@@ -1,50 +1,37 @@
 'use strict';
 
-var _ = require('lodash');
+var Ra = require('ramda');
 
 angular.module('search.component', ['ngNewRouter', 'statique:filters'])
   .controller('SearchController', ['$rootScope', '$location', '$http', '$q', SearchControllerFn]);
 
-var tags   = {};
-var ready  = [];
+var tag_cache = {};
 
 function SearchControllerFn($rootScope, $location, $http, $q) {
 
-  var list = {};
-  var posts = [];
+  var arrayLowerCase = Ra.map(function (string) {
+    return string.toLowerCase();
+  });
+
   var params = $location.search()["tags[]"];
-  var params_array = params ? [].concat(params) : undefined;
+  // coerce to array, params can be single string or array of strings
+  var params_array  = params ? [].concat(params) : [];
+  var unloaded_tags = Ra.difference(params_array, Ra.keys(tag_cache));
+  var activeTagsOf  = Ra.pick(params_array);
 
-  // Push promises to ready
+  this.params = params_array;
+  this.match_params = arrayLowerCase(this.params);
 
-  angular.forEach(params_array, function (name) {
-    if (!tags[name]) {
-      ready.push($http.get('./build/tags/' + name.toLowerCase() + '.json').then(function (result) {
-        tags[name] = result.data;
-      }));
-    }
+  var fetch = Ra.map(function (name) {
+    return $http.get('./build/tags/' + name.toLowerCase() + '.json').then(function (result) {
+      tag_cache[name] = result.data;
+    });
   });
 
   var allocateResults = angular.bind(this, function () {
-
-    angular.forEach(_.pick(tags, params_array), function (value, key) {
-      angular.forEach(value, function (url) {
-        list[url] = list[url] || [];
-        list[url].push(key);
-      });
-    });
-
-    angular.forEach(list, function (value, key) {
-      var title = key.slice(16).replace(/-/g, ' ').replace(/_/g, '-');
-      var link  = key.toLowerCase().replace(/_/g, '-');
-      posts.push({ key: key, tags: value, title: title, link: link });
-    });
-
-    this.results = _.sortBy(posts, function(post) {
-      return 1 - post.tags.length;
-    });
+    this.results = Ra.flatten(Ra.values(activeTagsOf(tag_cache)));
   });
-
+ 
   // When all tags loaded
-  $q.all(ready).then(allocateResults);
+  $q.all(fetch(unloaded_tags)).then(allocateResults);
 }

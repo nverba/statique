@@ -3,7 +3,7 @@
   <a ng-href="{{ post.meta.permalink }}"><h2 ng-bind="post.meta.title"></h2></a>
 
   <div class="post-detail">
-    <span ng-bind="post.meta.date | parseUrlDate | date:'mediumDate'"></span>
+    <span ng-bind="post.meta.date | parseDate | date:'mediumDate'"></span>
     <ul class="inline-tags">Tags:
       <li ng-repeat="tag in post.meta.tags">
         <a ng-bind="tag" ng-link="search({ queryParams: { tags: [tag]}})"></a>

@@ -1,13 +1,16 @@
 <div id="search-container">
   <ul>
-    <li ng-repeat="post in search.results">
-      <a ng-link="post({ id: post.link })">
+    <li ng-repeat="post in search.results"  ng-init="link = (post | parseLink)">
+      <a ng-link="post({ id: link })">
         <h3 ng-bind="post.title"></h3>
       </a>
       <div class="result-detail">
-        <span>{{ post.key | parseUrlDate | date:'mediumDate' }}</span>
-        <ul>Matches:
-          <li ng-repeat="tag in post.tags" ng-bind="tag"></li>
+        <span>{{ post.date | parseDate | date:'mediumDate' }}</span>
+        <ul>Tags:
+          <li ng-repeat="tag in post.tags">
+            <a ng-bind="tag" ng-link="search({ queryParams: { tags: search.params.concat(tag) }})" 
+                ng-class="{ active: search.match_params.indexOf(tag.toLowerCase()) !== -1 }"></a>
+          </li>
         </ul>
       </div>
     </li>

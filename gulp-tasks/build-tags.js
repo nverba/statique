@@ -18,7 +18,7 @@ gulp.task('build:tags', ['build:posts'], function () {
 
       function allocateTags(tag) {
         tags[tag] = tags[tag] || [];
-        tags[tag].push(post.key);
+        tags[tag].push(post);
       }
 
       post.tags.forEach(allocateTags);

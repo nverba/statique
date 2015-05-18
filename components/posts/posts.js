@@ -5,13 +5,13 @@ angular.module('posts.component', ['ngNewRouter', 'statique:filters'])
 
 function PostsControllerFn($http, $location) {
 
+  var allocatePosts = angular.bind(this, function (result) {
+    this.page = result.data;
+  });
+
   function fetchPosts(id) {
     return $http.get('./build/indexes/posts/' + id + '.json');
   }
-
-  var allocatePosts = function (result) {
-    this.page = result.data;
-  }.bind(this);
 
   fetchPosts($location.search().page || 0).then(allocatePosts);
  

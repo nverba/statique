@@ -12,3 +12,11 @@ __ToDo:__
  - scroll search input to top - mobile
 
  - Manage focus & state as a service
+
+
+
+
+
+Flush build history:
+
+git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch /posts /build /index.html -r' --prune-empty --tag-name-filter cat -- --all

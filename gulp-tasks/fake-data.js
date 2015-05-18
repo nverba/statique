@@ -21,20 +21,18 @@ gulp.task('fake:data', ['flush:fake'], function () {
 
     var date  = faker.date.past().toISOString().slice(0, 16).replace(/T/, '-').replace(/:/, '');
     var title = faker.company.catchPhrase().replace(/\//, '-');
-    var key   = date + '-' + title.replace(/-/g, '_').replace(/\s+/g, '-');
-    var permalink = date + '-' + title.replace(/\s+/g, '-').toLowerCase();
+    var link = date + '-' + title.replace(/\s+/g, '-').toLowerCase();
 
 var fake_data = "<!--\n\
 title: " + title.charAt(0).toUpperCase() + title.slice(1) + "\n\
 author: " + author + "\n\
 date: " + date + "\n\
-permalink: " + config.rootUrl + "#/post/"  + permalink + "\n\
-key: " + key + "\n\
+link: " + link + "\n\
 tags: [" + Object.keys(random_tags).toString() + "]\n\
 -->\n\
 \n" + faker.lorem.paragraphs();
 
-    fs.writeFile('./posts/' + permalink + '.md', fake_data);
+    fs.writeFile('./posts/' + link + '.md', fake_data);
 
   }
 });
