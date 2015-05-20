@@ -36,9 +36,10 @@
       transition: box-shadow 150ms cubic-bezier(0.47, 0, 0.745, 0.715);
     }
 
-    li:hover {
+    li:hover, li:focus {
       z-index: 4;
       box-shadow: 0px 2px 3px #8E8C8C;
+      outline: none;
     }
   }
 }

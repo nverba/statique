@@ -19,8 +19,6 @@ function TagSearchControllerFn($scope, $location, $http, $router, TagFn) { "use 
     }
   });
 
-  TagFn.then(refreshTags);
-
   var tagString = angular.bind(this, function () {
     return this.string;
   });
@@ -32,15 +30,6 @@ function TagSearchControllerFn($scope, $location, $http, $router, TagFn) { "use 
     $location.url(previous_page);
   });
 
-
-  function parseParams(params) {
-    return params.toString().replace(/,/g, ' ');
-  }
-
-  function pageUrl () {
-    return $location.url();
-  }
-
   var updateTagModule = angular.bind(this, function () {
     // cache previous_page url when leaving non search page
     if ($location.path() !== '/search') {
@@ -51,6 +40,16 @@ function TagSearchControllerFn($scope, $location, $http, $router, TagFn) { "use 
     var updated_params = $location.search()["tags[]"];
     this.string = updated_params ? parseParams(updated_params) : '';
   });
+
+  function parseParams(params) {
+    return params.toString().replace(/,/g, ' ');
+  }
+
+  function pageUrl () {
+    return $location.url();
+  }
+
+  TagFn.then(refreshTags);
 
   $scope.$watch(pageUrl, updateTagModule);
 
@@ -75,14 +74,37 @@ function tagSearchFn ($location, $http, $timeout) {
     templateUrl: 'directives/tag/tag.html',
     link: function(scope, element, attrs) {
 
+      var parent_element = element[0];
+      var keymap = { 38: -1, 40: 1 };
+      var list = parent_element.getElementsByTagName('li');
+
       scope.tag.captureFocus = function () {
-        element[0].querySelector('#search-input').focus();
+        parent_element.querySelector('#search-input').focus();
       };
 
       scope.tag.selectTag = function (tag) {
         scope.tag.string = scope.tag.string.replace(/\S+$/, tag);
         scope.tag.captureFocus();
       };
+
+      function focusButton(list, id) {
+        list[id].getElementsByTagName('button')[0].focus();
+      }
+
+      parent_element.getElementsByTagName('input')[0].addEventListener('keydown', function (event) {
+        var i = 0;
+        if (event.keyCode === 40) {
+          event.preventDefault();
+          parent_element.getElementsByTagName('ul')[0].addEventListener('keydown', function (event) {
+            var pos = i + keymap[event.keyCode];
+            if (pos >= 0 && pos < list.length) {  
+              event.preventDefault();
+              focusButton(list, i = pos);
+            }
+          });
+          focusButton(list, i);
+        }
+      });
     }
   };
 }
