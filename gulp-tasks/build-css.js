@@ -11,6 +11,7 @@ gulp.task('build:scss', function () {
     .pipe(inject(
       gulp.src(['./components/**/*.scss', './directives/**/*.scss'], {read: false}), {
         relative: true,
+        ignorePath: ['../'],
         starttag: '/* {{name}}:{{ext}} */',
         endtag: '/* endinject */',
         transform: function (filepath) {
@@ -18,13 +19,13 @@ gulp.task('build:scss', function () {
         }
       }
     ))
-  .pipe(gulp.dest('./src/scss/'));
+  .pipe(gulp.dest('./tmp/'));
 });
 
 // Use sass plugin to build main.css from main.scss
  
 gulp.task('build:css', ['build:scss'], function () {
-  gulp.src('./src/scss/main.scss')
+  gulp.src('./tmp/main.scss')
     .pipe(sass())
     .pipe(autoprefixer())
     .pipe(gulp.dest('./build/css'));
