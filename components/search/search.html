@@ -1,6 +1,6 @@
 <div id="search-container">
   <ul>
-    <li ng-repeat="post in search.results"  ng-init="link = (post | parseLink)">
+    <li ng-repeat="post in search.results | orderBy : 'count'"  ng-init="link = (post | parseLink)">
       <a ng-link="post({ id: link })">
         <h3 ng-bind="post.title"></h3>
       </a>
