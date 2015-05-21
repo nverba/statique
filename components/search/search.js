@@ -13,11 +13,16 @@ function SearchControllerFn($rootScope, $location, $http, $q) {
     return string.toLowerCase();
   });
 
+  var resetCount = Ra.map(function (post) {
+    post.count = 1;
+    return post;
+  })
+
   // count in & weed out the duplicates for ordering
   var countUniq = Ra.uniqWith(function(a, b) {
     if (a.title === b.title) {
-      b.count = b.count ? b.count + 1 : 2;
-      return true;
+      b.count += 1;
+      return true; 
     }
   });
 
@@ -37,7 +42,7 @@ function SearchControllerFn($rootScope, $location, $http, $q) {
   });
 
   var allocateResults = angular.bind(this, function () {
-    this.results = countUniq(Ra.flatten(Ra.values(activeTagsOf(tag_cache))));
+    this.results = countUniq(resetCount(Ra.flatten(Ra.values(activeTagsOf(tag_cache)))));
   });
  
   // When all tags loaded
